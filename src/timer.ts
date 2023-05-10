@@ -4,6 +4,10 @@ enum TYPES {
     LONG = 'Long',
 }
 
+interface Runnable {
+    running: boolean;
+}
+
 interface ITimer {
     _type: TYPES;
     _time: number;
@@ -17,7 +21,7 @@ interface ITimer {
     tick: () => void;
 }
 
-class Timer implements ITimer {
+class Timer implements ITimer, Runnable {
     _type = TYPES.POMODORO;
     _time = 25 * 60;
     intervalId: string | number | NodeJS.Timer | undefined;
@@ -25,6 +29,7 @@ class Timer implements ITimer {
     timerTabsArr: NodeListOf<HTMLLIElement>;
     timeEl;
     timeBtn;
+    running = false;
     constructor() {
         this.timerTabs = document.querySelector(
             '.timer__tabs'
@@ -76,9 +81,18 @@ class Timer implements ITimer {
         ).classList.add('timer__tab--active');
     };
 
-    private buttonClickHandler = () => {};
+    private buttonClickHandler = () => {
+        if (!this.running) {
+            this.start();
+            this.timeBtn.textContent = 'Pause';
+        } else {
+            clearInterval(this.intervalId!);
+            this.timeBtn.textContent = 'Start';
+        }
+    };
 
     reset = () => {
+        this.running = false;
         clearInterval(this.intervalId!);
         this.timerTabsArr.forEach(tab =>
             tab.classList.remove('timer__tab--active')
@@ -99,10 +113,12 @@ class Timer implements ITimer {
     };
 
     start = () => {
+        this.running = true;
         this.intervalId = setInterval(this.tick.bind(this), 1000);
         this.tick();
     };
     stop = () => {
+        this.running = false;
         if (this.intervalId) {
             clearInterval(this.intervalId);
         }

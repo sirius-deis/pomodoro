@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Pomodoro timer</title>
     </head>
-    <body>
+    <body class="pomodoro">
         <div class="container">
             <header class="header">
                 <div class="left">
@@ -42,14 +42,16 @@
                 </div>
             </header>
             <main>
-                <div class="main-container">
+                <div class="container-main">
                     <div class="timer">
                         <ul class="timer__tabs">
-                            <li class="tab">Pomodoro</li>
-                            <li class="tab">Short Break</li>
-                            <li class="tab">Long Break</li>
+                            <li class="timer__tab timer__tab--active">
+                                Pomodoro
+                            </li>
+                            <li class="timer__tab">Short Break</li>
+                            <li class="timer__tab">Long Break</li>
                         </ul>
-                        <div class="timer__timer">25:00</div>
+                        <div class="timer__time">25:00</div>
                         <button class="timer__btn btn">Start</button>
                     </div>
                 </div>

@@ -14,12 +14,25 @@
 
 body {
     min-height: 100vh;
-    background-color: $pomodoro-color;
+    &.pomodoro {
+        background-color: $pomodoro-color;
+    }
+    &.short {
+        background-color: $short-color;
+    }
+    &.long {
+        background-color: $long-color;
+    }
 }
 
-.container {
+.container,
+.container-main {
     max-width: 50%;
     margin: 0 auto;
+}
+
+.container-main {
+    max-width: 70%;
 }
 
 .btn {
@@ -27,15 +40,13 @@ body {
     justify-content: space-between;
     align-items: center;
     gap: 1rem;
-    padding: 0.7rem 1.5rem;
     cursor: pointer;
     color: $text-color-dark;
     background-color: $btn-color;
     border: 0;
     border-radius: 5px;
-}
-
-.btn:hover {
-    background-color: lighten($btn-color, 10%);
-    color: darken($text-color-dark, 10%);
+    &:hover {
+        background-color: lighten($btn-color, 10%);
+        color: darken($text-color-dark, 10%);
+    }
 }

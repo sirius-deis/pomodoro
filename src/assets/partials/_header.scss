@@ -1,0 +1,34 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem;
+    border-bottom: 1px solid $text-color-dark;
+}
+
+.header__logo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    color: $text-color-light;
+    font-size: 2.5rem;
+    font-weight: 600;
+}
+
+.header__tick {
+    width: 2.8rem;
+    height: 2.8rem;
+    text-align: center;
+    background-color: $text-color-light;
+    border-radius: 50%;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: $text-color-dark;
+}
+
+.right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}

@@ -50,3 +50,20 @@ body {
         color: darken($text-color-dark, 10%);
     }
 }
+
+.hidden {
+    display: none;
+}
+
+.rotatable {
+    animation: rotate 0.3s ease-out 1 forwards;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

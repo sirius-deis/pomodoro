@@ -5,40 +5,50 @@ enum TYPES {
 }
 
 interface Runnable {
-    running: boolean;
+    isRunning: boolean;
+    start: () => void;
+    stop: () => void;
+}
+
+interface Clickable {
+    audioEl: HTMLAudioElement;
+
+    play: () => void;
 }
 
 interface ITimer {
-    _type: TYPES;
-    _time: number;
+    type: TYPES;
+    time: number;
     intervalId: string | number | NodeJS.Timer | undefined;
-    timerTabs: HTMLUListElement;
-    timerTabsArr: NodeListOf<HTMLLIElement>;
-    timeEl: HTMLDivElement;
-    timeBtn: HTMLButtonElement;
-    start: () => void;
-    stop: () => void;
     tick: () => void;
 }
 
-class Timer implements ITimer, Runnable {
-    _type = TYPES.POMODORO;
-    _time = 25 * 60;
+class Timer implements ITimer, Runnable, Clickable {
+    type: TYPES = TYPES.POMODORO;
+    time: number = TYPES.POMODORO;
     intervalId: string | number | NodeJS.Timer | undefined;
-    timerTabs;
-    timerTabsArr: NodeListOf<HTMLLIElement>;
-    timeEl;
-    timeBtn;
-    running = false;
+    private timerTabs;
+    private timerTabsArr: NodeListOf<HTMLLIElement>;
+    private timeEl;
+    private timeBtn;
+    private timeResetBtn;
+    isRunning = false;
+    audioEl;
     constructor() {
-        this.timerTabs = document.querySelector(
+        const timerEl = document.querySelector('.timer') as HTMLDivElement;
+        this.timerTabs = timerEl.querySelector(
             '.timer__tabs'
         ) as HTMLUListElement;
         this.timerTabsArr = this.timerTabs.querySelectorAll('.timer__tab');
-        this.timeEl = document.querySelector('.timer__time') as HTMLDivElement;
-        this.timeBtn = document.querySelector(
+        this.timeEl = timerEl.querySelector('.timer__time') as HTMLDivElement;
+        this.timeBtn = timerEl.querySelector(
             '.timer__btn'
         ) as HTMLButtonElement;
+        this.timeResetBtn = timerEl.querySelector(
+            '.timer__reset'
+        ) as HTMLButtonElement;
+        this.audioEl = document.createElement('audio');
+        this.audioEl.src = 'public/click.wav';
     }
 
     init = () => {
@@ -50,6 +60,14 @@ class Timer implements ITimer, Runnable {
             'click',
             this.buttonClickHandler.bind(this)
         );
+        this.timeResetBtn.addEventListener(
+            'click',
+            this.hideResetBtn.bind(this)
+        );
+    };
+
+    play = () => {
+        this.audioEl.play();
     };
 
     private tabsClickHandler = (event: MouseEvent) => {
@@ -57,69 +75,94 @@ class Timer implements ITimer, Runnable {
         if (!target) {
             return;
         }
-        const tab = target.closest('.timer__tab');
+        const tab = target.closest('.timer__tab') as HTMLLIElement;
         const title = tab?.textContent?.trim().split(' ')[0];
         if (!title || target.classList.contains('timer__tab--active')) {
             return;
         }
         switch (title) {
             case 'Pomodoro':
-                this._time = TYPES.POMODORO;
+                this.type = TYPES.POMODORO;
                 break;
             case 'Short':
-                this._time = TYPES.SHORT;
+                this.type = TYPES.SHORT;
                 break;
             case 'Long':
-                this._time = TYPES.LONG;
+                this.type = TYPES.LONG;
                 break;
         }
-        this.reset();
+        this.time = this.type;
+        this.reset(tab);
         tab.classList.add('timer__tab--active');
     };
 
     private buttonClickHandler = () => {
-        if (!this.running) {
+        if (!this.isRunning) {
             this.start();
             this.timeBtn.textContent = 'Pause';
+            this.showResetBtn();
         } else {
-            clearInterval(this.intervalId!);
+            if (this.time === 0) {
+                this.time = this.type;
+                return this.reset();
+            }
+            this.stop();
             this.timeBtn.textContent = 'Start';
         }
+        this.play();
     };
 
-    reset = () => {
-        this.running = false;
+    showResetBtn = () => {
+        this.timeResetBtn.classList.remove('hidden');
+    };
+
+    hideResetBtn = () => {
+        this.timeResetBtn.classList.add('rotatable');
+        setTimeout(() => {
+            this.timeResetBtn.classList.add('hidden');
+            this.timeResetBtn.classList.remove('rotatable');
+        }, 300);
+        this.time = this.type;
+        this.reset();
+    };
+
+    reset = (tab?: HTMLLIElement) => {
+        this.isRunning = false;
         clearInterval(this.intervalId!);
+        this.setTimeOnEl();
+        this.timeBtn.textContent = 'Start';
+        if (!tab) {
+            return;
+        }
         this.timerTabsArr.forEach(tab =>
             tab.classList.remove('timer__tab--active')
         );
-        this.setTimeOnEl();
-        this.timeBtn.textContent = 'Start';
     };
 
     start = () => {
-        this.running = true;
+        this.isRunning = true;
         this.intervalId = setInterval(this.tick.bind(this), 1000);
         this.tick();
     };
     stop = () => {
-        this.running = false;
+        this.isRunning = false;
         if (this.intervalId) {
             clearInterval(this.intervalId);
         }
     };
     tick = () => {
-        if (this._time <= 0) {
+        if (this.time <= 0) {
             clearInterval(this.intervalId!);
+            this.timeBtn.textContent = 'Start';
         }
         this.setTimeOnEl();
-        this._time--;
+        this.time--;
     };
 
     private setTimeOnEl = () => {
         this.timeEl.innerHTML = `${this.formateTime(
-            Math.trunc(this._time / 60)
-        )}:${this.formateTime(Math.trunc(this._time % 60))}`;
+            Math.trunc(this.time / 60)
+        )}:${this.formateTime(Math.trunc(this.time % 60))}`;
     };
 
     private formateTime = (value: number): string => {

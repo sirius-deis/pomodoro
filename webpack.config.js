@@ -5,7 +5,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
     mode: 'development',
     entry: {
-        main: path.resolve(__dirname, src, 'index.ts'),
+        main: path.resolve(__dirname, 'src', 'index.ts'),
     },
     devtool: 'inline-source-map',
     output: {
@@ -13,12 +13,16 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         clean: true,
     },
-    modules: {
+    module: {
         rules: [
             {
-                test: /\.ts$/,
+                test: /\.ts$/i,
                 exclude: /node_modules/,
                 use: 'ts-loader',
+            },
+            {
+                test: /\.s[ac]ss$/i,
+                use: ['style-loader', 'css-loader', 'sass-loader'],
             },
         ],
     },

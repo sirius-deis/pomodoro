@@ -18,7 +18,10 @@
         text-align: center;
         cursor: pointer;
         &--active {
-            background-color: rgba($text-color-dark, 0.5);
+            border-bottom: 3px solid rgba($text-color-dark, 0.7);
+        }
+        &:not(.timer__tab--active):hover {
+            border-bottom: 3px solid rgba($text-color-dark, 0.2);
         }
     }
     &__time {

@@ -1,7 +1,7 @@
 enum TYPES {
-    POMODORO = 'Pomodoro',
-    SHORT = 'Short',
-    LONG = 'Long',
+    POMODORO = 25 * 60,
+    SHORT = 5 * 60,
+    LONG = 15 * 60,
 }
 
 interface Runnable {
@@ -59,26 +59,22 @@ class Timer implements ITimer, Runnable {
         }
         const tab = target.closest('.timer__tab');
         const title = tab?.textContent?.trim().split(' ')[0];
-        if (!title || title === this._type) {
+        if (!title || target.classList.contains('timer__tab--active')) {
             return;
         }
         switch (title) {
             case 'Pomodoro':
-                this._type = TYPES.POMODORO;
+                this._time = TYPES.POMODORO;
                 break;
             case 'Short':
-                this._type = TYPES.SHORT;
+                this._time = TYPES.SHORT;
                 break;
             case 'Long':
-                this._type = TYPES.LONG;
+                this._time = TYPES.LONG;
                 break;
         }
         this.reset();
-        (
-            Array.prototype.find.call(this.timerTabsArr, (tab: HTMLLIElement) =>
-                tab.textContent?.includes(this._type)
-            ) as HTMLLIElement
-        ).classList.add('timer__tab--active');
+        tab.classList.add('timer__tab--active');
     };
 
     private buttonClickHandler = () => {
@@ -97,17 +93,6 @@ class Timer implements ITimer, Runnable {
         this.timerTabsArr.forEach(tab =>
             tab.classList.remove('timer__tab--active')
         );
-        switch (this._type) {
-            case TYPES.LONG:
-                this._time = 15 * 60;
-                break;
-            case TYPES.SHORT:
-                this._time = 5 * 60;
-                break;
-            case TYPES.POMODORO:
-            default:
-                this._time = 25 * 60;
-        }
         this.setTimeOnEl();
         this.timeBtn.textContent = 'Start';
     };

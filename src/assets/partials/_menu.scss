@@ -1,0 +1,21 @@
+.menu {
+    padding: 0.65rem 1.3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.15rem;
+    border: 0;
+    border-radius: 4px;
+    background-color: darken($btn-color, 10%);
+    cursor: pointer;
+    &:hover {
+        background-color: darken($btn-color, 30%);
+    }
+    &__item {
+        width: 0.55rem;
+        height: 0.55rem;
+        border-radius: 1px;
+        background-color: $text-color-dark;
+    }
+}

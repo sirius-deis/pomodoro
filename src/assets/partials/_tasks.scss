@@ -1,0 +1,133 @@
+.tasks {
+    margin-top: 2rem;
+    &__heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 0;
+        font-size: 2rem;
+        border-bottom: 1px solid $text-color-light;
+    }
+    &__list {
+        margin-top: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    &__item {
+        padding: 0.9rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        color: $text-color-dark;
+        background-color: $text-color-light;
+        border-radius: 3px;
+        box-shadow: $shadow;
+        overflow: hidden;
+        cursor: pointer;
+        &--active::after {
+            content: '';
+            position: absolute;
+            width: 5px;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: $text-color-dark;
+        }
+        &:not(.tasks__item--active)::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: lighten($text-color-dark, 60%);
+            transition: width ease-out 0.1s;
+        }
+        &:not(.tasks__item--active):hover::after {
+            width: 5px;
+        }
+    }
+    &__tick {
+        width: 2rem;
+        height: 2rem;
+        font-size: 1.8rem;
+        font-weight: 600;
+        background-color: lighten($text-color-dark, 75%);
+        color: lighten($text-color-dark, 55%);
+        &:hover {
+            background-color: lighten($text-color-dark, 65%);
+        }
+        &--done {
+            color: $text-color-dark;
+        }
+    }
+    &__text {
+        min-width: 75%;
+        font-size: 1.5rem;
+    }
+    &__progress {
+        font-weight: 600;
+        font-size: 1.7rem;
+    }
+
+    &__add {
+        margin-top: 2rem;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 1.5rem 2rem;
+        font-size: 2rem;
+        color: $text-color-dark;
+        border: 3px dashed $text-color-light;
+        background-color: rgba($text-color-dark, 0.3);
+        cursor: pointer;
+        &:hover {
+            background-color: rgba($text-color-dark, 0.4);
+        }
+    }
+
+    &__info {
+        margin-top: 2.5rem;
+        width: 100%;
+        padding: 2rem 5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 2.3rem;
+        background-color: rgba($text-color-dark, 0.2);
+    }
+}
+
+.plus {
+    position: relative;
+    width: 2.5rem;
+    height: 2.5rem;
+    background-color: rgba($text-color-light, 0.9);
+    border-radius: 50%;
+}
+
+.plus::before {
+    content: '';
+    position: absolute;
+    width: 1.6rem;
+    height: 0.4rem;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: lighten($text-color-dark, 10%);
+}
+
+.plus::after {
+    content: '';
+    position: absolute;
+    width: 0.4rem;
+    height: 1.6rem;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: lighten($text-color-dark, 10%);
+}

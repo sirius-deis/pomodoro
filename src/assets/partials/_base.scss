@@ -16,13 +16,25 @@ body {
     min-height: 100vh;
     transition: background-color 0.3s;
     &.pomodoro {
-        background-color: $pomodoro-color;
+        background-image: linear-gradient(
+            to right,
+            darken($pomodoro-color, $shade),
+            lighten($pomodoro-color, $shade)
+        );
     }
     &.short {
-        background-color: $short-color;
+        background-image: linear-gradient(
+            to right,
+            darken($short-color, $shade),
+            lighten($short-color, $shade)
+        );
     }
     &.long {
-        background-color: $long-color;
+        background-image: linear-gradient(
+            to right,
+            darken($long-color, $shade),
+            lighten($long-color, $shade)
+        );
     }
 }
 
@@ -36,20 +48,10 @@ body {
     max-width: 60%;
 }
 
-.btn {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-    cursor: pointer;
-    color: $text-color-dark;
-    background-color: $btn-color;
-    border: 0;
-    border-radius: 5px;
-    &:hover {
-        background-color: lighten($btn-color, 10%);
-        color: darken($text-color-dark, 10%);
-    }
+.tick {
+    text-align: center;
+    background-color: $text-color-light;
+    border-radius: 50%;
 }
 
 .hidden {

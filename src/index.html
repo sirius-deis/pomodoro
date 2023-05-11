@@ -11,7 +11,8 @@
             <header class="header">
                 <div class="left">
                     <a href="/" class="header__logo">
-                        <span class="header__tick">&#10003;</span> Pomodoro
+                        <div class="header__tick tick">&#10003;</div>
+                        Pomodoro
                     </a>
                 </div>
                 <div class="right">
@@ -71,30 +72,43 @@
                     <div class="tasks">
                         <div class="tasks__heading">
                             Tasks
-                            <div class="menu">
-                                <div class="menu_item"></div>
-                                <div class="menu_item"></div>
-                                <div class="menu_item"></div>
-                            </div>
+                            <button class="menu">
+                                <div class="menu__item"></div>
+                                <div class="menu__item"></div>
+                                <div class="menu__item"></div>
+                            </button>
                         </div>
                         <div class="tasks__list">
-                            <div class="tasks__item">
-                                <div class="tasks__tick">&#10003;</div>
+                            <div class="tasks__item tasks__item--active">
+                                <div class="tasks__tick tick">&#10003;</div>
                                 <div class="tasks__text">Do something</div>
                                 <div class="tasks__progress">1/3</div>
-                                <div class="menu">
-                                    <div class="menu_item"></div>
-                                    <div class="menu_item"></div>
-                                    <div class="menu_item"></div>
-                                </div>
+                                <button class="menu">
+                                    <div class="menu__item"></div>
+                                    <div class="menu__item"></div>
+                                    <div class="menu__item"></div>
+                                </button>
+                            </div>
+                            <div class="tasks__item">
+                                <div class="tasks__tick tick">&#10003;</div>
+                                <div class="tasks__text">Do something</div>
+                                <div class="tasks__progress">1/3</div>
+                                <button class="menu">
+                                    <div class="menu__item"></div>
+                                    <div class="menu__item"></div>
+                                    <div class="menu__item"></div>
+                                </button>
                             </div>
                         </div>
-                        <div class="tasks__add">
+                        <button class="tasks__add">
                             <div class="plus"></div>
                             Add Task
-                        </div>
-                        <div class="tasks info">
-                            Pomos: 3/4 Finish at: 00:26 (0.6h)
+                        </button>
+                        <div class="tasks__info">
+                            <div class="tasks__amount">Pomos: 3/4</div>
+                            <div class="tasks__time">
+                                Finish at: 00:26 (0.6h)
+                            </div>
                         </div>
                     </div>
                 </div>

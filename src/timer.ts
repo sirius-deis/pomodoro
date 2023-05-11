@@ -10,21 +10,20 @@ interface Runnable {
     stop: () => void;
 }
 
-interface Clickable {
+interface Playable {
     audioEl: HTMLAudioElement;
-
     play: () => void;
 }
 
 interface ITimer {
-    type: TYPES;
+    _type: TYPES;
     time: number;
     intervalId: string | number | NodeJS.Timer | undefined;
     tick: () => void;
 }
 
-class Timer implements ITimer, Runnable, Clickable {
-    type: TYPES = TYPES.POMODORO;
+class Timer implements ITimer, Runnable, Playable {
+    _type: TYPES = TYPES.POMODORO;
     time: number = TYPES.POMODORO;
     intervalId: string | number | NodeJS.Timer | undefined;
     private timerTabs;
@@ -80,21 +79,26 @@ class Timer implements ITimer, Runnable, Clickable {
         if (!title || target.classList.contains('timer__tab--active')) {
             return;
         }
-        switch (title) {
-            case 'Pomodoro':
-                this.type = TYPES.POMODORO;
-                break;
-            case 'Short':
-                this.type = TYPES.SHORT;
-                break;
-            case 'Long':
-                this.type = TYPES.LONG;
-                break;
-        }
-        this.time = this.type;
+        this.type = title;
+        this.time = this._type;
         this.reset(tab);
         tab.classList.add('timer__tab--active');
+        document.body.className = title.toLowerCase();
     };
+
+    set type(value: string) {
+        switch (value) {
+            case 'Short':
+                this._type = TYPES.SHORT;
+                break;
+            case 'Long':
+                this._type = TYPES.LONG;
+                break;
+            case 'Pomodoro':
+            default:
+                this._type = TYPES.POMODORO;
+        }
+    }
 
     private buttonClickHandler = () => {
         if (!this.isRunning) {
@@ -103,7 +107,7 @@ class Timer implements ITimer, Runnable, Clickable {
             this.showResetBtn();
         } else {
             if (this.time === 0) {
-                this.time = this.type;
+                this.time = this._type;
                 return this.reset();
             }
             this.stop();
@@ -112,17 +116,17 @@ class Timer implements ITimer, Runnable, Clickable {
         this.play();
     };
 
-    showResetBtn = () => {
+    private showResetBtn = () => {
         this.timeResetBtn.classList.remove('hidden');
     };
 
-    hideResetBtn = () => {
+    private hideResetBtn = () => {
         this.timeResetBtn.classList.add('rotatable');
         setTimeout(() => {
             this.timeResetBtn.classList.add('hidden');
             this.timeResetBtn.classList.remove('rotatable');
         }, 300);
-        this.time = this.type;
+        this.time = this._type;
         this.reset();
     };
 
@@ -144,12 +148,14 @@ class Timer implements ITimer, Runnable, Clickable {
         this.intervalId = setInterval(this.tick.bind(this), 1000);
         this.tick();
     };
+
     stop = () => {
         this.isRunning = false;
         if (this.intervalId) {
             clearInterval(this.intervalId);
         }
     };
+
     tick = () => {
         if (this.time <= 0) {
             clearInterval(this.intervalId!);

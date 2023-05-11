@@ -23,17 +23,19 @@ interface ITimer {
 }
 
 class Timer implements ITimer, Runnable, Playable {
-    _type: TYPES = TYPES.POMODORO;
-    time: number = TYPES.POMODORO;
+    _type: TYPES;
+    time: number;
     intervalId: string | number | NodeJS.Timer | undefined;
-    private timerTabs;
+    private timerTabs: HTMLUListElement;
     private timerTabsArr: NodeListOf<HTMLLIElement>;
-    private timeEl;
-    private timeBtn;
-    private timeResetBtn;
+    private timeEl: HTMLDivElement;
+    private timeBtn: HTMLButtonElement;
+    private timeResetBtn: HTMLButtonElement;
     isRunning = false;
-    audioEl;
+    audioEl: HTMLAudioElement;
     constructor() {
+        this._type = TYPES.POMODORO;
+        this.time = TYPES.POMODORO;
         const timerEl = document.querySelector('.timer') as HTMLDivElement;
         this.timerTabs = timerEl.querySelector(
             '.timer__tabs'

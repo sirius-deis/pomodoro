@@ -58,6 +58,17 @@ body {
     display: none;
 }
 
+.left,
+.right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.row {
+    width: 100%;
+}
+
 .rotatable {
     animation: rotate 0.3s ease-out 1 forwards;
 }

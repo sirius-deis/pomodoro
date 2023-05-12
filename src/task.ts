@@ -18,12 +18,12 @@ class Task implements ITask {
     times: number;
     timesDone: number;
     note: string;
-    constructor(title: string, times: number, note: string) {
+    constructor(title: string, times: number, note?: string) {
         this.isDone = false;
         this.title = title;
         this.times = times;
         this.timesDone = 0;
-        this.note = note;
+        this.note = note ?? '';
     }
 
     toggleIsDone = () => {

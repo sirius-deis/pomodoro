@@ -53,3 +53,5 @@ class Task implements ITask {
         this.note = text;
     };
 }
+
+export default Task;

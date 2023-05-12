@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const webpackDashboard = require('webpack-dashboard/plugin');
 
 module.exports = {
     mode: 'development',
@@ -22,7 +23,22 @@ module.exports = {
             },
             {
                 test: /\.s[ac]ss$/i,
-                use: ['style-loader', 'css-loader', 'sass-loader'],
+                use: [
+                    'style-loader',
+                    {
+                        loader: 'css-loader',
+                        options: { importLoaders: 1 },
+                    },
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            postcssOptions: {
+                                plugins: [['autoprefixer']],
+                            },
+                        },
+                    },
+                    'sass-loader',
+                ],
             },
         ],
     },
@@ -43,6 +59,7 @@ module.exports = {
                 },
             ],
         }),
+        new webpackDashboard(),
     ],
     devServer: {
         static: {

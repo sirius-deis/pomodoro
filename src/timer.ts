@@ -86,6 +86,7 @@ class Timer implements ITimer, Runnable, Playable {
         this.reset(tab);
         tab.classList.add('timer__tab--active');
         document.body.className = title.toLowerCase();
+        this.hideResetBtn();
     };
 
     set type(value: string) {

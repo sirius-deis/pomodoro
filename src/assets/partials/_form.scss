@@ -1,27 +1,92 @@
 .form {
+    margin-top: 1rem;
+    background-color: $text-color-light;
     box-shadow: $shadow;
+    border-radius: 5px;
 
-    &__header {
+    &__container {
+        padding: 2.5rem 2rem 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 2.5rem;
     }
 
-    &_title {
+    &__title {
+        width: 100%;
+        padding: 0.7rem;
+        border: none;
+        background-color: transparent;
+        font-size: 3.2rem;
+        color: rgba($text-color-dark, 0.3);
+        &:focus {
+            outline: none;
+        }
+        &:hover {
+            color: rgba($text-color-dark, 0.5);
+        }
     }
 
     &__desc {
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: $text-color-dark;
     }
 
     &__amount {
+        width: 5rem;
+        padding: 0.5rem;
+        font-size: 2rem;
+        background-color: darken($btn-color, 35%);
+        border: none;
+        border-radius: 3px;
+        appearance: textfield;
+        caret-color: $text-color-dark;
+        &:focus {
+            outline: none;
+        }
+        &:hover {
+            background-color: darken($btn-color, 25%);
+        }
     }
 
     &__arrow {
+        padding: 0.8rem;
+        box-shadow: $shadow;
     }
 
     &__addition {
+        border: 0;
+        background-color: transparent;
+        font-size: 1.5rem;
+        text-decoration: underline;
+        cursor: pointer;
+        &:hover {
+            color: rgba($text-color-dark, 0.7);
+        }
     }
 
     &__footer {
+        padding: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: rgba($text-color-dark, 0.2);
     }
 
     &__btn {
+        padding: 0.7rem 2.4rem;
+        font-size: 1.6rem;
+        background-color: transparent;
+        &:hover {
+            background-color: inherit;
+        }
+        &--save {
+            background-color: $text-color-dark;
+            color: $text-color-light;
+            &:hover {
+                background-color: lighten($text-color-dark, 10%);
+                color: inherit;
+            }
+        }
     }
 }

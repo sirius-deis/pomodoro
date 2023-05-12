@@ -100,55 +100,77 @@
                                 </button>
                             </li>
                         </ul>
-                        <form class="form">
-                            <header class="form__header">
-                                <input
-                                type="text"
-                                placeholder="What are you working on?"
-                                class="form__title"
-                            />
-                            </header>
-                            <label for="amount" class="form__desc"
-                                >Est Pomodoros</label
-                            >
-                            <div class="row">
-                                <input
-                                    type="number"
-                                    name="amount"
-                                    id="amount"
-                                    class="form__amount"
-                                />
-                                <button class="form__arrow">
-                                    <img
-                                        src="public/icons/up-arrow.svg"
-                                        alt="arrow up"
-                                        width="20"
-                                        height="20"
-                                    />
-                                </button class="form__arrow">
-                                <button>
-                                    <img
-                                        src="public/icons/down-arrow.svg"
-                                        alt="arrow down"
-                                        width="20"
-                                        height="20"
-                                    />
-                                </button>
-                            </div>
-                            <div class="row">
-                                <button class="form__addition">+Add Note</button>
-                                <button class="form__addition">+Add Project</button>
-                            </div>
-                            <footer class="form__footer">
-                                <div class="left">
-                                    <button class="form__btn btn">Delete</button>
+                        <template id="form__template">
+                            <form class="form">
+                                <div class="form__container">
+                                    <div>
+                                        <input
+                                            type="text"
+                                            placeholder="What are you working on?"
+                                            class="form__title"
+                                        />
+                                    </div>
+                                    <label for="amount" class="form__desc"
+                                        >Est Pomodoros</label
+                                    >
+                                    <div class="row">
+                                        <input
+                                            type="number"
+                                            name="amount"
+                                            id="amount"
+                                            class="form__amount"
+                                        />
+                                        <button
+                                            type="button"
+                                            class="form__arrow btn"
+                                        >
+                                            <img
+                                                src="public/icons/up-arrow.svg"
+                                                alt="arrow up"
+                                                width="20"
+                                                height="20"
+                                            />
+                                        </button>
+                                        <button
+                                            type="button"
+                                            class="form__arrow btn"
+                                        >
+                                            <img
+                                                src="public/icons/down-arrow.svg"
+                                                alt="arrow down"
+                                                width="20"
+                                                height="20"
+                                            />
+                                        </button>
+                                    </div>
+                                    <div class="row">
+                                        <button class="form__addition">
+                                            +Add Note
+                                        </button>
+                                        <button class="form__addition">
+                                            +Add Project
+                                        </button>
+                                    </div>
                                 </div>
-                                <div class="right">
-                                    <button class="form__btn btn">Cancel</button>
-                                    <button class="form__btn btn">Save</button>
-                                </div>
-                            </footer>
-                        </form>
+                                <footer class="form__footer">
+                                    <div class="left">
+                                        <button class="form__btn btn">
+                                            Delete
+                                        </button>
+                                    </div>
+                                    <div class="right">
+                                        <button class="form__btn btn">
+                                            Cancel
+                                        </button>
+                                        <button
+                                            class="form__btn form__btn--save btn"
+                                        >
+                                            Save
+                                        </button>
+                                    </div>
+                                </footer>
+                            </form>
+                        </template>
                         <button class="tasks__add">
                             <div class="plus"></div>
                             Add Task

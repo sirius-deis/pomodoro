@@ -7,12 +7,18 @@ enum TYPES {
     LONG = 15 * 60,
 }
 
+interface ITimerContainer {
+    _type: TYPES;
+    time: number;
+    reset: (tab?: HTMLLIElement) => void;
+}
+
 interface Playable {
     audioEl: HTMLAudioElement;
     play: () => void;
 }
 
-class TimerContainer implements Playable {
+class TimerContainer implements ITimerContainer, Playable {
     _type: TYPES;
     time: number;
     private timerTabs: TimerTabs;
